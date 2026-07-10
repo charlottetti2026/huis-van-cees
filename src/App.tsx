@@ -70,19 +70,60 @@ function useTypewriter(text: string, speed = 90) {
   return { typed: text.slice(0, count), done: count >= text.length }
 }
 
+const NAV_LINKS = [
+  { label: 'Who we are', href: '#who-we-are' },
+  { label: 'Why join us', href: '#why-join-us' },
+  { label: 'Portfolio', href: '#portfolio' },
+]
+
+function Logo({ className = '' }: { className?: string }) {
+  return (
+    <p className={`font-display text-sm leading-[1.15] uppercase ${className}`}>
+      <span className="border-b-2 pb-0.5" style={{ borderColor: PURPLE }}>
+        huis van
+      </span>
+      <br />
+      <span className="border-b-2 pb-0.5" style={{ borderColor: PURPLE }}>
+        Cees
+      </span>
+    </p>
+  )
+}
+
+function Nav() {
+  return (
+    <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 sm:px-12">
+      <nav className="hidden gap-6 text-sm font-medium sm:flex">
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className="transition-colors duration-200 hover:text-[#8B3DFF]"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+      <Logo />
+      <a
+        href="#why-join-us"
+        className="font-display rounded-full px-4 py-2 text-xs normal-case text-white transition hover:brightness-110"
+        style={{ backgroundColor: ORANGE }}
+      >
+        Meld je aan
+      </a>
+    </header>
+  )
+}
+
 function Hero() {
   const { typed, done } = useTypewriter('Coming soon...')
 
   return (
     <section
-      className="flex flex-col items-center px-6 pt-10 pb-16 text-center"
+      className="flex flex-col items-center px-6 pt-4 pb-16 text-center"
       style={{ backgroundColor: GREEN, color: OFF_WHITE }}
     >
-      <p className="text-sm leading-tight font-bold lowercase">
-        huis
-        <br />
-        van cees
-      </p>
       <h1 className="font-display mt-1 max-w-3xl text-4xl leading-[0.95] tracking-tight uppercase sm:text-6xl">
         Your next
         <br />
@@ -210,18 +251,17 @@ const reasons = [
 
 const values = [
   {
-    title: 'Samen staan we sterker',
+    title: 'We trainen zelf',
     description:
-      'Niets groots ontstaat alleen. We bouwen mee met onze talenten, niet los ervan.',
+      'Iedereen bij ons sport structureel. We weten wat werkt, omdat we het zelf testen.',
   },
   {
-    title: 'Sport door en door',
-    description:
-      'We snappen sportmensen omdat we het zelf zijn — geen halve aannames.',
+    title: 'We managen, geen contentbureau',
+    description: 'Deals, contracten, planning — wij regelen het, jij sport en post.',
   },
   {
-    title: 'Resultaat boven praatjes',
-    description: 'We beloven weinig en leveren veel. Actie voor poeha.',
+    title: 'Kleine club, korte lijnen',
+    description: 'Je belt met de founders, niet met een account manager.',
   },
 ]
 
@@ -273,9 +313,14 @@ function WhatWeStandFor() {
 function App() {
   return (
     <div style={{ backgroundColor: GREEN, color: OFF_WHITE }}>
+      <Nav />
       <Hero />
 
-      <section className="border-t px-6 py-24 sm:px-12" style={{ borderColor: `${OFF_WHITE}1A` }}>
+      <section
+        id="who-we-are"
+        className="border-t px-6 py-24 sm:px-12"
+        style={{ borderColor: `${OFF_WHITE}1A` }}
+      >
         <Reveal>
           <div className="max-w-3xl">
             <h2 className="font-display text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
@@ -314,7 +359,11 @@ function App() {
 
       <WhatWeStandFor />
 
-      <section className="border-t px-6 py-24 sm:px-12" style={{ borderColor: `${OFF_WHITE}1A` }}>
+      <section
+        id="why-join-us"
+        className="border-t px-6 py-24 sm:px-12"
+        style={{ borderColor: `${OFF_WHITE}1A` }}
+      >
         <Reveal>
           <h2 className="font-display max-w-3xl text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
             Why join us?
@@ -346,7 +395,11 @@ function App() {
         </Reveal>
       </section>
 
-      <section className="border-t px-6 py-24 sm:px-12" style={{ borderColor: `${OFF_WHITE}1A` }}>
+      <section
+        id="portfolio"
+        className="border-t px-6 py-24 sm:px-12"
+        style={{ borderColor: `${OFF_WHITE}1A` }}
+      >
         <Reveal>
           <h2 className="text-center text-sm font-semibold tracking-[0.3em] uppercase opacity-40">
             Already in our portfolio
