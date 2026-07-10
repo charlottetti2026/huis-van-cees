@@ -118,23 +118,24 @@ function PhotoMasthead() {
   }, [])
 
   return (
-    <div className="relative flex h-[80vh] min-h-[520px] w-full flex-col items-center justify-center overflow-hidden bg-neutral-800 px-6 sm:px-12">
+    <div className="relative flex h-[80vh] min-h-[520px] w-full flex-col items-start justify-center overflow-hidden bg-neutral-800 px-6 sm:px-12">
       {HEADER_PHOTOS.map((src, i) => (
         <img
           key={src}
           src={src}
           alt="Huis van Cees"
+          style={{ filter: 'brightness(1.25) saturate(1.05)' }}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
             i === index ? 'opacity-100' : 'opacity-0'
           }`}
         />
       ))}
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/30" />
       <div
         className="absolute inset-x-0 bottom-0 h-32"
         style={{ background: `linear-gradient(to top, ${GREEN}, transparent)` }}
       />
-      <div className="relative flex flex-col items-center text-center">
+      <div className="relative flex flex-col items-start text-left">
         <HouseFlourish show={typingDone} />
         <h1 className="font-display mt-3 text-6xl leading-[0.85] tracking-tighter text-white uppercase sm:text-8xl">
           <Typewriter text="Huis van Cees" onDone={() => setTypingDone(true)} />
@@ -159,28 +160,21 @@ const FLY_IN_PHOTOS = [
 ]
 
 function FlyInPhotos() {
-  const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((i) => (i + 1) % FLY_IN_PHOTOS.length)
-    }, 1400)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
-    <div className="relative mt-14 aspect-video w-full max-w-3xl overflow-hidden rounded-2xl bg-black/20">
+    <div className="mt-14 grid w-full max-w-4xl grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-4">
       {FLY_IN_PHOTOS.map((src, i) => (
-        <img
+        <Reveal
           key={src}
-          src={src}
-          alt="Huis van Cees"
-          className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out ${
-            i === index
-              ? 'translate-x-0 opacity-100'
-              : 'translate-x-8 opacity-0'
-          }`}
-        />
+          className={i === 0 ? 'col-span-2 sm:col-span-1' : ''}
+          style={{ transitionDelay: `${i * 150}ms` }}
+        >
+          <img
+            src={src}
+            alt="Huis van Cees"
+            style={{ filter: 'brightness(1.25) saturate(1.05)' }}
+            className="aspect-[3/4] w-full rounded-xl object-cover"
+          />
+        </Reveal>
       ))}
     </div>
   )
@@ -204,6 +198,7 @@ function PortfolioMosaic() {
           <img
             src={photo.src}
             alt="The Running Sisters"
+            style={{ filter: 'brightness(1.25) saturate(1.05)' }}
             className="h-full w-full rounded-xl object-cover"
           />
         </Reveal>
