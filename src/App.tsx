@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 
-function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+function Reveal({
+  children,
+  className = '',
+  style,
+}: {
+  children: React.ReactNode
+  className?: string
+  style?: React.CSSProperties
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
 
@@ -23,6 +31,7 @@ function Reveal({ children, className = '' }: { children: React.ReactNode; class
   return (
     <div
       ref={ref}
+      style={style}
       className={`transition-all duration-700 ease-out ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
       } ${className}`}
@@ -50,12 +59,18 @@ function VideoPlaceholder() {
 function PhotoMasthead() {
   return (
     <div className="relative flex h-[80vh] min-h-[520px] w-full flex-col justify-end overflow-hidden bg-neutral-800 px-6 pb-16 sm:px-12">
-      <div className="absolute inset-0 flex items-center justify-center text-white/20">
-        <span className="text-sm font-semibold tracking-[0.3em] uppercase">
-          Foto komt hier
-        </span>
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      <img
+        src="/header.jpg"
+        alt="Huis van Cees"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      <div
+        className="absolute inset-x-0 bottom-0 h-32"
+        style={{
+          background: 'linear-gradient(to top, #154734, transparent)',
+        }}
+      />
       <div className="relative text-left">
         <h1 className="font-display text-6xl leading-[0.85] tracking-tighter text-white uppercase sm:text-8xl">
           Huis
@@ -66,6 +81,34 @@ function PhotoMasthead() {
           Sport influencer agency
         </p>
       </div>
+    </div>
+  )
+}
+
+function PortfolioMosaic() {
+  const photos = [
+    { src: '/portfolio/2055.jpg', className: 'col-span-2 row-span-2' },
+    { src: '/portfolio/2131.jpg', className: 'col-span-1 row-span-1' },
+    { src: '/portfolio/2163.jpg', className: 'col-span-1 row-span-2' },
+    { src: '/portfolio/2202.jpg', className: 'col-span-1 row-span-1' },
+    { src: '/portfolio/2235.jpg', className: 'col-span-2 row-span-1' },
+  ]
+
+  return (
+    <div className="grid grid-cols-3 grid-rows-3 gap-3 sm:gap-4">
+      {photos.map((photo, i) => (
+        <Reveal
+          key={photo.src}
+          className={photo.className}
+          style={{ transitionDelay: `${i * 120}ms` }}
+        >
+          <img
+            src={photo.src}
+            alt="The Running Sisters"
+            className="h-full w-full rounded-xl object-cover"
+          />
+        </Reveal>
+      ))}
     </div>
   )
 }
@@ -193,12 +236,16 @@ function App() {
           <h2 className="text-center text-sm font-semibold tracking-[0.3em] text-white/40 uppercase">
             Already in our portfolio
           </h2>
-          <div className="mx-auto mt-10 flex max-w-4xl items-center justify-center">
+          <div className="mx-auto mt-6 flex max-w-4xl items-center justify-center">
             <span className="font-display text-2xl tracking-tight text-white/30 uppercase sm:text-3xl">
               The Running Sisters
             </span>
           </div>
         </Reveal>
+
+        <div className="mx-auto mt-12 max-w-3xl">
+          <PortfolioMosaic />
+        </div>
       </section>
     </div>
   )
