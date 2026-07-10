@@ -1,7 +1,9 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 
 @theme {
   --font-sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Anton", system-ui, sans-serif;
 }
 
 body {

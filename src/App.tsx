@@ -3,7 +3,7 @@ function HouseMark() {
     <svg
       viewBox="0 0 48 48"
       fill="none"
-      className="h-7 w-7 text-neutral-950"
+      className="h-7 w-7 text-white"
       aria-hidden="true"
     >
       <path
@@ -24,16 +24,31 @@ function HouseMark() {
   )
 }
 
+function VideoPlaceholder() {
+  return (
+    <div className="relative mt-14 aspect-video w-full max-w-3xl overflow-hidden rounded-2xl bg-black/20">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90">
+          <div className="ml-1 h-0 w-0 border-y-[10px] border-l-[16px] border-y-transparent border-l-neutral-900" />
+        </div>
+      </div>
+      <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs font-semibold tracking-[0.2em] text-white/70 uppercase">
+        Video komt hier
+      </p>
+    </div>
+  )
+}
+
 const founders = [
-  { photo: '/founders/founder-1.png', name: 'Naam founder 1' },
-  { photo: '/founders/founder-2.png', name: 'Naam founder 2' },
-  { photo: '/founders/founder-3.png', name: 'Naam founder 3' },
+  { photo: '/founders/founder-1.png', name: 'Charlotte' },
+  { photo: '/founders/founder-2.png', name: 'Emma' },
+  { photo: '/founders/founder-3.png', name: 'Emma Sophie' },
   { photo: '/founders/founder-4.png', name: 'Naam founder 4' },
 ]
 
 function App() {
   return (
-    <div className="bg-white text-neutral-950">
+    <div style={{ backgroundColor: '#154734' }} className="text-white">
       <section className="flex flex-col items-center px-6 pt-16 pb-24 text-center">
         <div className="mb-10 flex items-center gap-2">
           <HouseMark />
@@ -42,33 +57,36 @@ function App() {
           </span>
         </div>
 
-        <h1 className="max-w-4xl text-5xl leading-[1.05] font-black tracking-tight uppercase sm:text-7xl">
-          Sport matcht met <span className="text-orange-600">sport</span>
+        <h1 className="font-display max-w-4xl text-6xl leading-[0.9] tracking-tight uppercase sm:text-8xl">
+          Niets groots <span className="text-orange-500">ontstaat</span>{' '}
+          alleen
         </h1>
-        <p className="mt-6 text-lg font-medium text-neutral-500 sm:text-xl">
+        <p className="mt-6 text-lg font-medium text-white/60 sm:text-xl">
           Agency voor sport influencers
         </p>
 
-        <p className="mt-10 text-2xl font-black tracking-tight uppercase sm:text-3xl">
+        <p className="font-display mt-10 text-2xl tracking-tight uppercase sm:text-3xl">
           Coming soon
         </p>
-        <p className="mt-6 max-w-md text-neutral-500">
+        <p className="mt-6 max-w-md text-white/60">
           We bouwen aan iets moois — binnenkort meer.
         </p>
         <button
           type="button"
-          className="mt-8 rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800"
+          className="mt-8 rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-white/90"
         >
           Interesse om in ons portfolio te komen? Meld je aan
         </button>
+
+        <VideoPlaceholder />
       </section>
 
-      <section className="border-t border-neutral-100 px-6 py-24">
+      <section className="border-t border-white/10 px-6 py-24">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-4xl font-black tracking-tight uppercase sm:text-6xl">
+          <h2 className="font-display text-5xl tracking-tight uppercase sm:text-7xl">
             Who we are
           </h2>
-          <p className="mt-8 max-w-xl text-lg text-neutral-500">
+          <p className="mt-8 max-w-xl text-lg text-white/60">
             Wij zijn zelf sportmensen — dus snappen we sportmensen.
             <br />
             <br />
@@ -86,7 +104,7 @@ function App() {
                 alt={founder.name}
                 className="aspect-square w-full rounded-2xl object-cover"
               />
-              <p className="mt-3 text-sm font-medium text-neutral-700">
+              <p className="mt-3 text-sm font-medium text-white/80">
                 {founder.name}
               </p>
             </div>
@@ -94,12 +112,12 @@ function App() {
         </div>
       </section>
 
-      <section className="border-t border-neutral-100 px-6 py-24">
-        <h2 className="text-center text-sm font-semibold tracking-[0.3em] text-neutral-400 uppercase">
+      <section className="border-t border-white/10 px-6 py-24">
+        <h2 className="text-center text-sm font-semibold tracking-[0.3em] text-white/40 uppercase">
           Already in our portfolio
         </h2>
         <div className="mx-auto mt-10 flex max-w-4xl items-center justify-center">
-          <span className="text-2xl font-black tracking-tight text-neutral-300 uppercase sm:text-3xl">
+          <span className="font-display text-2xl tracking-tight text-white/30 uppercase sm:text-3xl">
             The Running Sisters
           </span>
         </div>
