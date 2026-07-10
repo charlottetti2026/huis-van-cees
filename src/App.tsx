@@ -59,10 +59,11 @@ function HouseFlourish({ show }: { show: boolean }) {
       aria-hidden="true"
     >
       <path
-        d="M4 26C2 12 16 4 26 10c6 4 5 13-2 14-5 1-8-4-5-8"
+        d="M4 26 18 6 32 26c2 4-2 6-5 3"
         stroke="currentColor"
         strokeWidth="3.2"
         strokeLinecap="round"
+        strokeLinejoin="round"
         fill="none"
       />
     </svg>
@@ -261,7 +262,7 @@ function App() {
             Coming soon
           </p>
           <p className="mt-6 max-w-md opacity-60">
-            We bouwen aan iets moois — binnenkort meer.
+            We bouwen aan iets moois, binnenkort meer.
           </p>
           <button
             type="button"
