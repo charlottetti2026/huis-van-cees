@@ -8,10 +8,12 @@ function Reveal({
   children,
   className = '',
   style,
+  duration = 700,
 }: {
   children: React.ReactNode
   className?: string
   style?: React.CSSProperties
+  duration?: number
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
@@ -35,8 +37,8 @@ function Reveal({
   return (
     <div
       ref={ref}
-      style={style}
-      className={`transition-all duration-700 ease-out ${
+      style={{ ...style, transitionDuration: `${duration}ms` }}
+      className={`transition-all ease-out ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
       } ${className}`}
     >
@@ -48,27 +50,20 @@ function Reveal({
 function HouseFlourish({ show }: { show: boolean }) {
   return (
     <svg
-      viewBox="0 0 48 48"
+      viewBox="0 0 40 40"
       fill="none"
-      className={`absolute left-1/2 h-[0.5em] w-[0.5em] -translate-x-1/2 transition-all duration-500 ease-out ${
-        show ? '-top-[0.62em] scale-100 opacity-100' : '-top-[0.3em] scale-50 opacity-0'
+      className={`absolute left-1/2 h-[0.55em] w-[0.55em] -translate-x-1/2 transition-all duration-500 ease-out ${
+        show ? '-top-[0.5em] scale-100 opacity-100 rotate-0' : '-top-[0.2em] scale-50 opacity-0 -rotate-12'
       }`}
       style={{ color: ORANGE }}
       aria-hidden="true"
     >
       <path
-        d="M8 22 24 8l16 14M13 22v18h22V22"
+        d="M4 26C2 12 16 4 26 10c6 4 5 13-2 14-5 1-8-4-5-8"
         stroke="currentColor"
-        strokeWidth="3"
+        strokeWidth="3.2"
         strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M21 40v-11h6v11"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        fill="none"
       />
     </svg>
   )
@@ -178,19 +173,28 @@ const FLY_IN_PHOTOS = [
 ]
 
 function FlyInPhotos() {
+  const layout = [
+    'col-span-2 row-span-2',
+    'col-span-1 row-span-1',
+    'col-span-1 row-span-1',
+    'col-span-1 row-span-1',
+    'col-span-1 row-span-1',
+  ]
+
   return (
-    <div className="mt-14 grid w-full max-w-4xl grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-4">
+    <div className="mt-14 grid w-full max-w-4xl auto-rows-[110px] grid-cols-4 gap-3 sm:auto-rows-[140px] sm:gap-4">
       {FLY_IN_PHOTOS.map((src, i) => (
         <Reveal
           key={src}
-          className={i === 0 ? 'col-span-2 sm:col-span-1' : ''}
-          style={{ transitionDelay: `${i * 150}ms` }}
+          className={layout[i]}
+          style={{ transitionDelay: `${i * 90}ms` }}
+          duration={400}
         >
           <img
             src={src}
             alt="Huis van Cees"
             style={{ filter: 'brightness(1.25) saturate(1.05)' }}
-            className="aspect-[3/4] w-full rounded-xl object-cover"
+            className="h-full w-full rounded-xl object-cover"
           />
         </Reveal>
       ))}
