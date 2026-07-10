@@ -205,9 +205,9 @@ function FlyInPhotos() {
 
 function PortfolioMosaic() {
   const photos = [
-    { src: '/portfolio/2055.jpg', className: 'col-span-2 row-span-2' },
-    { src: '/portfolio/2131.jpg', className: 'col-span-1 row-span-2' },
-    { src: '/portfolio/2163.jpg', className: 'col-span-1 row-span-1' },
+    { src: '/portfolio/rs-2.jpg', className: 'col-span-2 row-span-2' },
+    { src: '/portfolio/rs-3.jpg', className: 'col-span-1 row-span-2' },
+    { src: '/portfolio/rs-1.jpg', className: 'col-span-1 row-span-1' },
   ]
 
   return (
