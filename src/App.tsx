@@ -42,8 +42,8 @@ function VideoPlaceholder() {
 const founders = [
   { photo: '/founders/founder-1.png', name: 'Charlotte' },
   { photo: '/founders/founder-2.png', name: 'Emma' },
-  { photo: '/founders/founder-3.png', name: 'Emma Sophie' },
-  { photo: '/founders/founder-4.png', name: 'Naam founder 4' },
+  { photo: '/founders/founder-3.png', name: 'Emma' },
+  { photo: '/founders/founder-4.png', name: 'Sophie' },
 ]
 
 function App() {
@@ -57,9 +57,8 @@ function App() {
           </span>
         </div>
 
-        <h1 className="font-display max-w-4xl text-6xl leading-[0.9] tracking-tight uppercase sm:text-8xl">
-          Niets groots <span className="text-orange-500">ontstaat</span>{' '}
-          alleen
+        <h1 className="font-display max-w-4xl text-6xl leading-[0.82] tracking-tighter uppercase sm:text-8xl">
+          Niets groots <span className="text-[#8B3DFF]">ontstaat</span> alleen
         </h1>
         <p className="mt-6 text-lg font-medium text-white/60 sm:text-xl">
           Agency voor sport influencers
@@ -83,7 +82,7 @@ function App() {
 
       <section className="border-t border-white/10 px-6 py-24">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-display text-5xl tracking-tight uppercase sm:text-7xl">
+          <h2 className="font-display text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
             Who we are
           </h2>
           <p className="mt-8 max-w-xl text-lg text-white/60">

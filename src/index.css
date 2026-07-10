@@ -1,9 +1,15 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+@font-face {
+  font-family: "Archivo Black";
+  src: url("/fonts/ArchivoBlack.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
 
 @theme {
   --font-sans: system-ui, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Anton", system-ui, sans-serif;
+  --font-display: "Archivo Black", system-ui, sans-serif;
 }
 
 body {
