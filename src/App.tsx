@@ -5,16 +5,25 @@ const ORANGE = '#FF5A1F'
 const GREEN = '#154734'
 const PURPLE = '#8B3DFF'
 
+const FROM_CLASSES = {
+  top: '-translate-y-10',
+  bottom: 'translate-y-10',
+  left: '-translate-x-10',
+  right: 'translate-x-10',
+}
+
 function Reveal({
   children,
   className = '',
   style,
   duration = 700,
+  from = 'bottom',
 }: {
   children: React.ReactNode
   className?: string
   style?: React.CSSProperties
   duration?: number
+  from?: 'top' | 'bottom' | 'left' | 'right'
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
@@ -40,7 +49,7 @@ function Reveal({
       ref={ref}
       style={{ ...style, transitionDuration: `${duration}ms` }}
       className={`transition-all ease-out ${
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        visible ? 'translate-x-0 translate-y-0 opacity-100' : `${FROM_CLASSES[from]} opacity-0`
       } ${className}`}
     >
       {children}
@@ -48,10 +57,25 @@ function Reveal({
   )
 }
 
+function useTypewriter(text: string, speed = 90) {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (count >= text.length) return
+    const t = setTimeout(() => setCount((c) => c + 1), speed)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count])
+
+  return { typed: text.slice(0, count), done: count >= text.length }
+}
+
 function Hero() {
+  const { typed, done } = useTypewriter('Coming soon...')
+
   return (
     <section
-      className="flex flex-col items-center px-6 pt-12 pb-16 text-center"
+      className="flex flex-col items-center px-6 pt-10 pb-16 text-center"
       style={{ backgroundColor: GREEN, color: OFF_WHITE }}
     >
       <p className="text-sm leading-tight font-bold lowercase">
@@ -59,7 +83,7 @@ function Hero() {
         <br />
         van cees
       </p>
-      <h1 className="font-display mt-4 max-w-3xl text-4xl leading-[1.05] tracking-tight uppercase sm:text-6xl">
+      <h1 className="font-display mt-1 max-w-3xl text-4xl leading-[0.95] tracking-tight uppercase sm:text-6xl">
         Your next
         <br />
         <span style={{ color: PURPLE }}>Sport influencer</span>
@@ -67,14 +91,17 @@ function Hero() {
         Agency
       </h1>
       <p
-        className="font-display mt-2 text-3xl tracking-tight uppercase italic sm:text-4xl"
+        className="font-display mt-0 text-3xl tracking-tight uppercase italic sm:text-4xl"
         style={{ color: PURPLE }}
       >
-        Coming soon
+        {typed}
+        <span className={`inline-block w-[0.06em] ${done ? 'opacity-0' : 'animate-pulse'}`}>
+          |
+        </span>
       </p>
       <button
         type="button"
-        className="mt-6 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
+        className="font-display mt-5 rounded-full px-6 py-3 text-sm normal-case text-white transition hover:brightness-110"
         style={{ backgroundColor: ORANGE }}
       >
         Interesse om in ons portfolio te komen? Meld je aan
@@ -103,15 +130,23 @@ function FlyInPhotos() {
     'col-span-1 row-span-1',
     'col-span-1 row-span-1',
   ]
+  const directions: Array<'top' | 'bottom' | 'left' | 'right'> = [
+    'left',
+    'top',
+    'right',
+    'bottom',
+    'left',
+  ]
 
   return (
-    <div className="mt-14 grid w-full max-w-3xl auto-rows-[150px] grid-cols-3 gap-3 sm:auto-rows-[190px] sm:gap-4">
+    <div className="mt-8 grid w-full max-w-3xl auto-rows-[150px] grid-cols-3 gap-3 sm:auto-rows-[190px] sm:gap-4">
       {FLY_IN_PHOTOS.map((src, i) => (
         <Reveal
           key={src}
           className={layout[i]}
           style={{ transitionDelay: `${i * 90}ms` }}
-          duration={400}
+          duration={500}
+          from={directions[i]}
         >
           <img
             src={src}
