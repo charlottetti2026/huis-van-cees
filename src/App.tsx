@@ -323,12 +323,12 @@ function App() {
               Who we are
             </h2>
             <p className="mt-8 max-w-xl text-lg leading-relaxed opacity-60">
-              Wij zijn zelf sportmensen — dus snappen we sportmensen.
+              Huis van Cees brengt sportmerken en sporters bij elkaar.
               <br />
               <br />
-              Daarom bouwen we Huis van Cees: een agency die sport influencers
-              begrijpt, niet alleen managet. Sport matcht met sport, en dat
-              voel je in alles wat we doen.
+              Wij matchen merken met de atleten en creators die echt bij ze
+              passen, en regelen de samenwerking eromheen — van deal tot
+              content.
             </p>
           </div>
         </Reveal>
