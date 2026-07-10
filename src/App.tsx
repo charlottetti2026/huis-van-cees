@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
+const OFF_WHITE = '#F5F1E8'
+const ORANGE = '#FF5A1F'
+const GREEN = '#154734'
+
 function Reveal({
   children,
   className = '',
@@ -41,43 +45,104 @@ function Reveal({
   )
 }
 
-function VideoPlaceholder() {
+function HouseFlourish({ show }: { show: boolean }) {
   return (
-    <div className="relative mt-14 aspect-video w-full max-w-3xl overflow-hidden rounded-2xl bg-black/20">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90">
-          <div className="ml-1 h-0 w-0 border-y-[10px] border-l-[16px] border-y-transparent border-l-neutral-900" />
-        </div>
-      </div>
-      <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs font-semibold tracking-[0.2em] text-white/70 uppercase">
-        Video komt hier
-      </p>
-    </div>
+    <svg
+      viewBox="0 0 48 48"
+      fill="none"
+      className={`h-10 w-10 transition-all duration-500 ease-out ${
+        show ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-3 scale-50 opacity-0'
+      }`}
+      style={{ color: ORANGE }}
+      aria-hidden="true"
+    >
+      <path
+        d="M8 22 24 8l16 14M13 22v18h22V22"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M21 40v-11h6v11"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }
 
-function PhotoMasthead() {
+function Typewriter({ text, onDone }: { text: string; onDone?: () => void }) {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (count >= text.length) {
+      onDone?.()
+      return
+    }
+    const t = setTimeout(() => setCount((c) => c + 1), 90)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count])
+
   return (
-    <div className="relative flex h-[80vh] min-h-[520px] w-full flex-col justify-end overflow-hidden bg-neutral-800 px-6 pb-16 sm:px-12">
-      <img
-        src="/header.jpg"
-        alt="Huis van Cees"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+    <>
+      {text.slice(0, count)}
+      <span
+        className={`inline-block w-[0.06em] ${count < text.length ? 'animate-pulse' : 'opacity-0'}`}
+      >
+        |
+      </span>
+    </>
+  )
+}
+
+const HEADER_PHOTOS = [
+  '/header-1.jpg',
+  '/header-2.jpg',
+  '/header-3.jpg',
+  '/header-4.jpg',
+]
+
+function PhotoMasthead() {
+  const [index, setIndex] = useState(0)
+  const [typingDone, setTypingDone] = useState(false)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % HEADER_PHOTOS.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="relative flex h-[80vh] min-h-[520px] w-full flex-col items-center justify-center overflow-hidden bg-neutral-800 px-6 sm:px-12">
+      {HEADER_PHOTOS.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt="Huis van Cees"
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+            i === index ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      ))}
+      <div className="absolute inset-0 bg-black/60" />
       <div
         className="absolute inset-x-0 bottom-0 h-32"
-        style={{
-          background: 'linear-gradient(to top, #154734, transparent)',
-        }}
+        style={{ background: `linear-gradient(to top, ${GREEN}, transparent)` }}
       />
-      <div className="relative text-left">
-        <h1 className="font-display text-6xl leading-[0.85] tracking-tighter text-white uppercase sm:text-8xl">
-          Huis
-          <br />
-          van Cees
+      <div className="relative flex flex-col items-center text-center">
+        <HouseFlourish show={typingDone} />
+        <h1 className="font-display mt-3 text-6xl leading-[0.85] tracking-tighter text-white uppercase sm:text-8xl">
+          <Typewriter text="Huis van Cees" onDone={() => setTypingDone(true)} />
         </h1>
-        <p className="mt-3 text-sm font-semibold tracking-[0.2em] text-yellow-300 uppercase sm:text-base">
+        <p
+          className="mt-3 text-sm font-semibold tracking-[0.2em] uppercase sm:text-base"
+          style={{ color: ORANGE }}
+        >
           Sport influencer agency
         </p>
       </div>
@@ -85,17 +150,51 @@ function PhotoMasthead() {
   )
 }
 
+const FLY_IN_PHOTOS = [
+  '/portfolio/vw-1.jpg',
+  '/portfolio/vw-2.jpg',
+  '/portfolio/vw-3.jpg',
+  '/portfolio/vw-4.jpg',
+  '/portfolio/vw-5.jpg',
+]
+
+function FlyInPhotos() {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % FLY_IN_PHOTOS.length)
+    }, 1400)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="relative mt-14 aspect-video w-full max-w-3xl overflow-hidden rounded-2xl bg-black/20">
+      {FLY_IN_PHOTOS.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt="Huis van Cees"
+          className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out ${
+            i === index
+              ? 'translate-x-0 opacity-100'
+              : 'translate-x-8 opacity-0'
+          }`}
+        />
+      ))}
+    </div>
+  )
+}
+
 function PortfolioMosaic() {
   const photos = [
     { src: '/portfolio/2055.jpg', className: 'col-span-2 row-span-2' },
-    { src: '/portfolio/2131.jpg', className: 'col-span-1 row-span-1' },
-    { src: '/portfolio/2163.jpg', className: 'col-span-1 row-span-2' },
-    { src: '/portfolio/2202.jpg', className: 'col-span-1 row-span-1' },
-    { src: '/portfolio/2235.jpg', className: 'col-span-2 row-span-1' },
+    { src: '/portfolio/2131.jpg', className: 'col-span-1 row-span-2' },
+    { src: '/portfolio/2163.jpg', className: 'col-span-1 row-span-1' },
   ]
 
   return (
-    <div className="grid grid-cols-3 grid-rows-3 gap-3 sm:gap-4">
+    <div className="grid grid-cols-3 grid-rows-2 gap-3 sm:gap-4">
       {photos.map((photo, i) => (
         <Reveal
           key={photo.src}
@@ -136,47 +235,38 @@ const reasons = [
 
 function App() {
   return (
-    <div style={{ backgroundColor: '#154734' }} className="text-white">
+    <div style={{ backgroundColor: GREEN, color: OFF_WHITE }}>
       <PhotoMasthead />
 
       <section className="flex flex-col items-center px-6 pt-24 pb-24 text-center">
         <Reveal className="flex flex-col items-center">
-          <h2 className="font-display max-w-4xl text-6xl leading-[0.82] tracking-tighter uppercase sm:text-8xl">
-            Niets groots <span className="text-[#8B3DFF]">ontstaat</span>{' '}
-            alleen
-          </h2>
-          <p className="mt-6 text-lg font-medium text-white/60 sm:text-xl">
-            Agency voor sport influencers
-          </p>
-        </Reveal>
-
-        <Reveal className="flex flex-col items-center">
-          <p className="font-display mt-10 text-2xl tracking-tight uppercase sm:text-3xl">
+          <p className="font-display text-2xl tracking-tight uppercase sm:text-3xl">
             Coming soon
           </p>
-          <p className="mt-6 max-w-md text-white/60">
+          <p className="mt-6 max-w-md opacity-60">
             We bouwen aan iets moois — binnenkort meer.
           </p>
           <button
             type="button"
-            className="mt-8 rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-white/90"
+            className="mt-8 rounded-full px-6 py-3 text-sm font-semibold transition hover:brightness-110"
+            style={{ backgroundColor: ORANGE, color: OFF_WHITE }}
           >
             Interesse om in ons portfolio te komen? Meld je aan
           </button>
         </Reveal>
 
         <Reveal className="flex w-full flex-col items-center">
-          <VideoPlaceholder />
+          <FlyInPhotos />
         </Reveal>
       </section>
 
-      <section className="border-t border-white/10 px-6 py-24">
+      <section className="border-t px-6 py-24" style={{ borderColor: `${OFF_WHITE}1A` }}>
         <Reveal>
           <div className="mx-auto max-w-3xl">
             <h2 className="font-display text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
               Who we are
             </h2>
-            <p className="mt-8 max-w-xl text-lg text-white/60">
+            <p className="mt-8 max-w-xl text-lg opacity-60">
               Wij zijn zelf sportmensen — dus snappen we sportmensen.
               <br />
               <br />
@@ -195,7 +285,7 @@ function App() {
                 alt={founder.name}
                 className="aspect-square w-full rounded-2xl object-cover"
               />
-              <p className="mt-3 text-sm font-medium text-white/80">
+              <p className="mt-3 text-sm font-medium opacity-80">
                 {founder.name}
               </p>
             </div>
@@ -203,7 +293,7 @@ function App() {
         </Reveal>
       </section>
 
-      <section className="border-t border-white/10 px-6 py-24">
+      <section className="border-t px-6 py-24" style={{ borderColor: `${OFF_WHITE}1A` }}>
         <Reveal>
           <h2 className="font-display mx-auto max-w-3xl text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
             Why join us?
@@ -212,9 +302,13 @@ function App() {
 
         <Reveal className="mx-auto mt-12 max-w-3xl">
           {reasons.map((reason, i) => (
-            <div key={reason.title} className="group border-t border-white/10 py-6">
+            <div
+              key={reason.title}
+              className="group border-t py-6"
+              style={{ borderColor: `${OFF_WHITE}1A` }}
+            >
               <div className="flex items-baseline gap-4">
-                <span className="text-sm text-white/40">
+                <span className="text-sm opacity-40">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="font-display text-2xl uppercase transition-colors duration-300 group-hover:text-[#8B3DFF]">
@@ -222,7 +316,7 @@ function App() {
                 </span>
               </div>
               {reason.description && (
-                <p className="max-h-0 overflow-hidden pl-9 text-white/60 opacity-0 transition-all duration-300 group-hover:mt-3 group-hover:max-h-20 group-hover:opacity-100">
+                <p className="max-h-0 overflow-hidden pl-9 opacity-0 transition-all duration-300 group-hover:mt-3 group-hover:max-h-20 group-hover:opacity-60">
                   {reason.description}
                 </p>
               )}
@@ -231,13 +325,13 @@ function App() {
         </Reveal>
       </section>
 
-      <section className="border-t border-white/10 px-6 py-24">
+      <section className="border-t px-6 py-24" style={{ borderColor: `${OFF_WHITE}1A` }}>
         <Reveal>
-          <h2 className="text-center text-sm font-semibold tracking-[0.3em] text-white/40 uppercase">
+          <h2 className="text-center text-sm font-semibold tracking-[0.3em] uppercase opacity-40">
             Already in our portfolio
           </h2>
           <div className="mx-auto mt-6 flex max-w-4xl items-center justify-center">
-            <span className="font-display text-2xl tracking-tight text-white/30 uppercase sm:text-3xl">
+            <span className="font-display text-2xl tracking-tight uppercase opacity-30 sm:text-3xl">
               The Running Sisters
             </span>
           </div>
