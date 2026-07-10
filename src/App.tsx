@@ -50,8 +50,8 @@ function HouseFlourish({ show }: { show: boolean }) {
     <svg
       viewBox="0 0 48 48"
       fill="none"
-      className={`h-10 w-10 transition-all duration-500 ease-out ${
-        show ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-3 scale-50 opacity-0'
+      className={`absolute left-1/2 h-[0.5em] w-[0.5em] -translate-x-1/2 transition-all duration-500 ease-out ${
+        show ? '-top-[0.62em] scale-100 opacity-100' : '-top-[0.3em] scale-50 opacity-0'
       }`}
       style={{ color: ORANGE }}
       aria-hidden="true"
@@ -59,14 +59,14 @@ function HouseFlourish({ show }: { show: boolean }) {
       <path
         d="M8 22 24 8l16 14M13 22v18h22V22"
         stroke="currentColor"
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M21 40v-11h6v11"
         stroke="currentColor"
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -74,38 +74,21 @@ function HouseFlourish({ show }: { show: boolean }) {
   )
 }
 
-function Typewriter({ lines, onDone }: { lines: string[]; onDone?: () => void }) {
+function useTypewriter(lines: string[], speed = 90) {
   const full = lines.join('\n')
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if (count >= full.length) {
-      onDone?.()
-      return
-    }
-    const t = setTimeout(() => setCount((c) => c + 1), 90)
+    if (count >= full.length) return
+    const t = setTimeout(() => setCount((c) => c + 1), speed)
     return () => clearTimeout(t)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count])
 
-  const typed = full.slice(0, count)
-  const typedLines = typed.split('\n')
+  const typedLines = full.slice(0, count).split('\n')
+  const done = count >= full.length
 
-  return (
-    <>
-      {typedLines.map((line, i) => (
-        <span key={i}>
-          {i > 0 && <br />}
-          {line}
-        </span>
-      ))}
-      <span
-        className={`inline-block w-[0.06em] ${count < full.length ? 'animate-pulse' : 'opacity-0'}`}
-      >
-        |
-      </span>
-    </>
-  )
+  return { typedLines, done }
 }
 
 const HEADER_PHOTOS = [
@@ -117,7 +100,7 @@ const HEADER_PHOTOS = [
 
 function PhotoMasthead() {
   const [index, setIndex] = useState(0)
-  const [typingDone, setTypingDone] = useState(false)
+  const { typedLines, done } = useTypewriter(['Huis', 'van Cees'])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -145,9 +128,35 @@ function PhotoMasthead() {
         style={{ background: `linear-gradient(to top, ${GREEN}, transparent)` }}
       />
       <div className="relative flex flex-col items-start text-left">
-        <HouseFlourish show={typingDone} />
-        <h1 className="font-display mt-3 text-6xl leading-[0.85] tracking-tighter text-white uppercase sm:text-8xl">
-          <Typewriter lines={['Huis', 'van Cees']} onDone={() => setTypingDone(true)} />
+        <h1 className="font-display text-6xl leading-[0.85] tracking-tighter text-white uppercase sm:text-8xl">
+          {typedLines.map((line, i) => {
+            const isLastLine = i === typedLines.length - 1
+            if (isLastLine && done) {
+              const head = line.slice(0, -1)
+              const tail = line.slice(-1)
+              return (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {head}
+                  <span className="relative inline-block">
+                    {tail}
+                    <HouseFlourish show={done} />
+                  </span>
+                </span>
+              )
+            }
+            return (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            )
+          })}
+          <span
+            className={`inline-block w-[0.06em] ${done ? 'opacity-0' : 'animate-pulse'}`}
+          >
+            |
+          </span>
         </h1>
         <p
           className="mt-3 text-sm font-semibold tracking-[0.2em] uppercase sm:text-base"
