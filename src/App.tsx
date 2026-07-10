@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 const OFF_WHITE = '#F5F1E8'
 const ORANGE = '#FF5A1F'
 const GREEN = '#154734'
+const MAGENTA = '#F026D6'
 
 function Reveal({
   children,
@@ -47,121 +48,38 @@ function Reveal({
   )
 }
 
-function HouseFlourish({ show }: { show: boolean }) {
+function Hero() {
   return (
-    <svg
-      viewBox="0 0 40 40"
-      fill="none"
-      className={`absolute left-1/2 h-[0.55em] w-[0.55em] -translate-x-1/2 transition-all duration-500 ease-out ${
-        show ? '-top-[0.5em] scale-100 opacity-100 rotate-0' : '-top-[0.2em] scale-50 opacity-0 -rotate-12'
-      }`}
-      style={{ color: ORANGE }}
-      aria-hidden="true"
-    >
-      <path
-        d="M4 26 18 6 32 26c2 4-2 6-5 3"
-        stroke="currentColor"
-        strokeWidth="3.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-    </svg>
-  )
-}
+    <section className="flex flex-col items-center bg-white px-6 pt-16 pb-20 text-center text-neutral-950">
+      <p className="text-sm leading-tight font-bold lowercase">
+        huis
+        <br />
+        van cees
+      </p>
+      <h1 className="font-display mt-10 max-w-3xl text-4xl leading-[1.05] tracking-tight uppercase sm:text-6xl">
+        Your next sport influencer agency
+      </h1>
+      <p
+        className="font-display mt-6 text-3xl tracking-tight uppercase sm:text-4xl"
+        style={{ color: MAGENTA }}
+      >
+        Coming soon
+      </p>
+      <p className="mt-6 max-w-md text-neutral-500">
+        We bouwen aan iets moois, binnenkort meer.
+      </p>
+      <button
+        type="button"
+        className="mt-8 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
+        style={{ backgroundColor: ORANGE }}
+      >
+        Interesse om in ons portfolio te komen? Meld je aan
+      </button>
 
-function useTypewriter(lines: string[], speed = 90) {
-  const full = lines.join('\n')
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (count >= full.length) return
-    const t = setTimeout(() => setCount((c) => c + 1), speed)
-    return () => clearTimeout(t)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count])
-
-  const typedLines = full.slice(0, count).split('\n')
-  const done = count >= full.length
-
-  return { typedLines, done }
-}
-
-const HEADER_PHOTOS = [
-  '/header-1.jpg',
-  '/header-2.jpg',
-  '/header-3.jpg',
-  '/header-4.jpg',
-]
-
-function PhotoMasthead() {
-  const [index, setIndex] = useState(0)
-  const { typedLines, done } = useTypewriter(['Huis', 'van Cees'])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((i) => (i + 1) % HEADER_PHOTOS.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <div className="relative flex h-[80vh] min-h-[520px] w-full flex-col items-start justify-center overflow-hidden bg-neutral-800 px-6 sm:px-12">
-      {HEADER_PHOTOS.map((src, i) => (
-        <img
-          key={src}
-          src={src}
-          alt="Huis van Cees"
-          style={{ filter: 'brightness(1.25) saturate(1.05)' }}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
-            i === index ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-      ))}
-      <div className="absolute inset-0 bg-black/30" />
-      <div
-        className="absolute inset-x-0 bottom-0 h-32"
-        style={{ background: `linear-gradient(to top, ${GREEN}, transparent)` }}
-      />
-      <div className="relative flex flex-col items-start text-left">
-        <h1 className="font-display text-6xl leading-[0.85] tracking-tighter text-white uppercase sm:text-8xl">
-          {typedLines.map((line, i) => {
-            const isLastLine = i === typedLines.length - 1
-            if (isLastLine && done) {
-              const head = line.slice(0, -1)
-              const tail = line.slice(-1)
-              return (
-                <span key={i}>
-                  {i > 0 && <br />}
-                  {head}
-                  <span className="relative inline-block">
-                    {tail}
-                    <HouseFlourish show={done} />
-                  </span>
-                </span>
-              )
-            }
-            return (
-              <span key={i}>
-                {i > 0 && <br />}
-                {line}
-              </span>
-            )
-          })}
-          <span
-            className={`inline-block w-[0.06em] ${done ? 'opacity-0' : 'animate-pulse'}`}
-          >
-            |
-          </span>
-        </h1>
-        <p
-          className="mt-3 text-sm font-semibold tracking-[0.2em] uppercase sm:text-base"
-          style={{ color: ORANGE }}
-        >
-          Sport influencer agency
-        </p>
-      </div>
-    </div>
+      <Reveal className="flex w-full flex-col items-center">
+        <FlyInPhotos />
+      </Reveal>
+    </section>
   )
 }
 
@@ -194,7 +112,6 @@ function FlyInPhotos() {
           <img
             src={src}
             alt="Huis van Cees"
-            style={{ filter: 'brightness(1.25) saturate(1.05)' }}
             className="h-full w-full rounded-xl object-cover"
           />
         </Reveal>
@@ -254,29 +171,7 @@ const reasons = [
 function App() {
   return (
     <div style={{ backgroundColor: GREEN, color: OFF_WHITE }}>
-      <PhotoMasthead />
-
-      <section className="flex flex-col items-center px-6 pt-24 pb-24 text-center">
-        <Reveal className="flex flex-col items-center">
-          <p className="font-display text-2xl tracking-tight uppercase sm:text-3xl">
-            Coming soon
-          </p>
-          <p className="mt-6 max-w-md opacity-60">
-            We bouwen aan iets moois, binnenkort meer.
-          </p>
-          <button
-            type="button"
-            className="mt-8 rounded-full px-6 py-3 text-sm font-semibold transition hover:brightness-110"
-            style={{ backgroundColor: ORANGE, color: OFF_WHITE }}
-          >
-            Interesse om in ons portfolio te komen? Meld je aan
-          </button>
-        </Reveal>
-
-        <Reveal className="flex w-full flex-col items-center">
-          <FlyInPhotos />
-        </Reveal>
-      </section>
+      <Hero />
 
       <section className="border-t px-6 py-24" style={{ borderColor: `${OFF_WHITE}1A` }}>
         <Reveal>
