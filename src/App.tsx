@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 const OFF_WHITE = '#F5F1E8'
 const ORANGE = '#FF5A1F'
 const GREEN = '#154734'
-const MAGENTA = '#F026D6'
+const PURPLE = '#8B3DFF'
 
 function Reveal({
   children,
@@ -50,27 +50,25 @@ function Reveal({
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center bg-white px-6 pt-16 pb-20 text-center text-neutral-950">
+    <section className="flex flex-col items-center bg-white px-6 pt-12 pb-16 text-center text-neutral-950">
       <p className="text-sm leading-tight font-bold lowercase">
         huis
         <br />
         van cees
       </p>
-      <h1 className="font-display mt-10 max-w-3xl text-4xl leading-[1.05] tracking-tight uppercase sm:text-6xl">
-        Your next sport influencer agency
+      <h1 className="font-display mt-4 max-w-3xl text-4xl leading-[1.05] tracking-tight uppercase sm:text-6xl">
+        Your next <span style={{ color: PURPLE }}>sport influencer</span>{' '}
+        agency
       </h1>
       <p
-        className="font-display mt-6 text-3xl tracking-tight uppercase sm:text-4xl"
-        style={{ color: MAGENTA }}
+        className="font-display mt-2 text-3xl tracking-tight uppercase sm:text-4xl"
+        style={{ color: PURPLE }}
       >
         Coming soon
       </p>
-      <p className="mt-6 max-w-md text-neutral-500">
-        We bouwen aan iets moois, binnenkort meer.
-      </p>
       <button
         type="button"
-        className="mt-8 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
+        className="mt-6 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
         style={{ backgroundColor: ORANGE }}
       >
         Interesse om in ons portfolio te komen? Meld je aan
@@ -84,11 +82,11 @@ function Hero() {
 }
 
 const FLY_IN_PHOTOS = [
-  '/portfolio/vw-1.jpg',
-  '/portfolio/vw-2.jpg',
-  '/portfolio/vw-3.jpg',
-  '/portfolio/vw-4.jpg',
-  '/portfolio/vw-5.jpg',
+  '/portfolio/on-1.jpg',
+  '/portfolio/on-2.jpg',
+  '/portfolio/on-3.jpg',
+  '/portfolio/on-4.jpg',
+  '/portfolio/on-5.jpg',
 ]
 
 function FlyInPhotos() {
@@ -190,9 +188,13 @@ function App() {
           </div>
         </Reveal>
 
-        <Reveal className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-4">
-          {founders.map((founder) => (
-            <div key={founder.photo} className="flex flex-col items-center">
+        <div className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-4">
+          {founders.map((founder, i) => (
+            <Reveal
+              key={founder.photo}
+              className="flex flex-col items-center"
+              style={{ transitionDelay: `${i * 120}ms` }}
+            >
               <img
                 src={founder.photo}
                 alt={founder.name}
@@ -201,9 +203,9 @@ function App() {
               <p className="mt-3 text-sm font-medium opacity-80">
                 {founder.name}
               </p>
-            </div>
+            </Reveal>
           ))}
-        </Reveal>
+        </div>
       </section>
 
       <section className="border-t px-6 py-24" style={{ borderColor: `${OFF_WHITE}1A` }}>
