@@ -115,11 +115,11 @@ function Hero() {
 }
 
 const FLY_IN_PHOTOS = [
-  '/portfolio/on-1.jpg',
+  '/portfolio/rs-3.jpg',
   '/portfolio/on-2.jpg',
+  '/portfolio/on-1.jpg',
   '/portfolio/on-3.jpg',
   '/portfolio/on-4.jpg',
-  '/portfolio/on-5.jpg',
 ]
 
 function FlyInPhotos() {
