@@ -121,71 +121,72 @@ function Hero() {
 
   return (
     <section
-      className="flex flex-col items-center px-6 pt-4 pb-16 text-center"
+      className="lg:grid lg:min-h-[calc(100vh-64px)] lg:grid-cols-2"
       style={{ backgroundColor: GREEN, color: OFF_WHITE }}
     >
-      <h1 className="font-display mt-1 max-w-3xl text-4xl leading-[0.95] tracking-tight uppercase sm:text-6xl">
-        Your next
-        <br />
-        <span style={{ color: PURPLE }}>Sport creator</span>
-        <br />
-        Agency
-      </h1>
-      <p
-        className="font-display mt-16 text-sm tracking-tight uppercase italic sm:text-base"
-        style={{ color: PURPLE }}
-      >
-        {typed}
-        <span className={`inline-block w-[0.06em] ${done ? 'opacity-0' : 'animate-pulse'}`}>
-          |
-        </span>
-      </p>
-      <button
-        type="button"
-        className="font-display mt-5 rounded-full px-6 py-3 text-sm normal-case text-white transition hover:brightness-110"
-        style={{ backgroundColor: ORANGE }}
-      >
-        Interesse om in ons portfolio te komen? Meld je aan
-      </button>
+      <div className="flex flex-col items-center px-6 pt-4 pb-16 text-center lg:items-start lg:justify-center lg:px-12 lg:py-16 lg:text-left">
+        <h1 className="font-display mt-1 max-w-3xl text-4xl leading-[0.95] tracking-tight uppercase sm:text-6xl">
+          Your next
+          <br />
+          <span style={{ color: PURPLE }}>Sport creator</span>
+          <br />
+          Agency
+        </h1>
+        <p
+          className="font-display mt-16 text-sm tracking-tight uppercase italic sm:text-base"
+          style={{ color: PURPLE }}
+        >
+          {typed}
+          <span className={`inline-block w-[0.06em] ${done ? 'opacity-0' : 'animate-pulse'}`}>
+            |
+          </span>
+        </p>
+        <button
+          type="button"
+          className="font-display mt-5 rounded-full px-6 py-3 text-sm normal-case text-white transition hover:brightness-110"
+          style={{ backgroundColor: ORANGE }}
+        >
+          Interesse om in ons portfolio te komen? Meld je aan
+        </button>
+      </div>
 
-      <Reveal className="flex w-full flex-col items-center">
-        <FlyInPhotos />
-      </Reveal>
+      <CameraRoll />
     </section>
   )
 }
 
-const FLY_IN_PHOTOS = [
-  '/portfolio/rs-3.jpg',
-  '/portfolio/on-2.jpg',
+const ROLL_PHOTOS = [
+  '/portfolio/rs-1.jpg',
   '/portfolio/on-1.jpg',
+  '/portfolio/rs-2.jpg',
+  '/portfolio/on-2.jpg',
+  '/portfolio/rs-3.jpg',
   '/portfolio/on-3.jpg',
   '/portfolio/on-4.jpg',
+  '/portfolio/on-1.jpg',
+  '/portfolio/rs-2.jpg',
 ]
 
-function FlyInPhotos() {
-  const layout = [
-    'col-span-1 row-span-1',
-    'col-span-1 row-span-1',
-    'col-span-1 row-span-2',
-    'col-span-1 row-span-1',
-    'col-span-1 row-span-1',
-  ]
+function CameraRoll() {
   const directions: Array<'top' | 'bottom' | 'left' | 'right'> = [
     'left',
     'top',
     'right',
     'bottom',
     'left',
+    'right',
+    'top',
+    'bottom',
+    'left',
   ]
 
   return (
-    <div className="mt-8 grid w-full max-w-2xl auto-rows-[90px] grid-cols-3 gap-2 sm:auto-rows-[120px] sm:gap-3">
-      {FLY_IN_PHOTOS.map((src, i) => (
+    <div className="grid grid-cols-3 gap-2 px-6 pb-16 sm:px-12 lg:h-full lg:gap-2 lg:p-2 lg:pb-2">
+      {ROLL_PHOTOS.map((src, i) => (
         <Reveal
-          key={src}
-          className={layout[i]}
-          style={{ transitionDelay: `${i * 90}ms` }}
+          key={`${src}-${i}`}
+          className="aspect-square lg:aspect-auto lg:h-full"
+          style={{ transitionDelay: `${i * 80}ms` }}
           duration={500}
           from={directions[i]}
         >
@@ -193,7 +194,7 @@ function FlyInPhotos() {
             src={src}
             alt="Huis van Cees"
             style={{ filter: 'brightness(1.25) saturate(1.05)' }}
-            className="h-full w-full rounded-xl object-cover"
+            className="h-full w-full rounded-xl object-cover lg:rounded-none"
           />
         </Reveal>
       ))}
@@ -271,9 +272,13 @@ function WhatWeStandFor() {
       <img
         src="/portfolio/on-3.jpg"
         alt=""
-        className="absolute inset-0 h-full w-full object-cover opacity-20"
+        style={{ objectPosition: '85% center' }}
+        className="absolute inset-0 hidden h-full w-full object-cover opacity-70 sm:block"
       />
-      <div className="absolute inset-0" style={{ backgroundColor: `${GREEN}CC` }} />
+      <div
+        className="absolute inset-0"
+        style={{ background: `linear-gradient(to right, ${GREEN} 45%, transparent 100%)` }}
+      />
 
       <div className="relative">
         <Reveal>
