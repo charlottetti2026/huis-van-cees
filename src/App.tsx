@@ -50,7 +50,10 @@ function Reveal({
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center bg-white px-6 pt-12 pb-16 text-center text-neutral-950">
+    <section
+      className="flex flex-col items-center px-6 pt-12 pb-16 text-center"
+      style={{ backgroundColor: GREEN, color: OFF_WHITE }}
+    >
       <p className="text-sm leading-tight font-bold lowercase">
         huis
         <br />
@@ -60,10 +63,7 @@ function Hero() {
         Your next <span style={{ color: PURPLE }}>sport influencer</span>{' '}
         agency
       </h1>
-      <p
-        className="font-display mt-2 text-3xl tracking-tight uppercase sm:text-4xl"
-        style={{ color: PURPLE }}
-      >
+      <p className="font-display mt-2 text-3xl tracking-tight uppercase opacity-30 sm:text-4xl">
         Coming soon
       </p>
       <button
@@ -110,6 +110,7 @@ function FlyInPhotos() {
           <img
             src={src}
             alt="Huis van Cees"
+            style={{ filter: 'brightness(1.25) saturate(1.05)' }}
             className="h-full w-full rounded-xl object-cover"
           />
         </Reveal>
