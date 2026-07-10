@@ -66,7 +66,10 @@ function Hero() {
         <br />
         Agency
       </h1>
-      <p className="font-display mt-2 text-3xl tracking-tight uppercase opacity-30 sm:text-4xl">
+      <p
+        className="font-display mt-2 text-3xl tracking-tight uppercase italic sm:text-4xl"
+        style={{ color: PURPLE }}
+      >
         Coming soon
       </p>
       <button
@@ -94,15 +97,15 @@ const FLY_IN_PHOTOS = [
 
 function FlyInPhotos() {
   const layout = [
-    'col-span-2 row-span-2',
     'col-span-1 row-span-1',
     'col-span-1 row-span-1',
+    'col-span-1 row-span-2',
     'col-span-1 row-span-1',
     'col-span-1 row-span-1',
   ]
 
   return (
-    <div className="mt-14 grid w-full max-w-4xl auto-rows-[110px] grid-cols-4 gap-3 sm:auto-rows-[140px] sm:gap-4">
+    <div className="mt-14 grid w-full max-w-3xl auto-rows-[150px] grid-cols-3 gap-3 sm:auto-rows-[190px] sm:gap-4">
       {FLY_IN_PHOTOS.map((src, i) => (
         <Reveal
           key={src}
