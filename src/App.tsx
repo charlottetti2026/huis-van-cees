@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
 const OFF_WHITE = '#F5F1E8'
-const ORANGE = '#FF5A1F'
 const GREEN = '#154734'
 const PURPLE = '#8B3DFF'
 
@@ -107,8 +106,7 @@ function Nav() {
       <Logo />
       <a
         href="#why-join-us"
-        className="font-display rounded-full px-4 py-2 text-xs normal-case text-white transition hover:brightness-110"
-        style={{ backgroundColor: ORANGE }}
+        className="text-sm font-medium transition-colors duration-200 hover:text-[#8B3DFF]"
       >
         Meld je aan
       </a>
@@ -141,13 +139,6 @@ function Hero() {
             |
           </span>
         </p>
-        <button
-          type="button"
-          className="font-display mt-5 rounded-full px-6 py-3 text-sm normal-case text-white transition hover:brightness-110"
-          style={{ backgroundColor: ORANGE }}
-        >
-          Interesse om in ons portfolio te komen? Meld je aan
-        </button>
       </div>
 
       <CameraRoll />
