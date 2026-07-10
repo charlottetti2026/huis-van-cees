@@ -74,11 +74,12 @@ function HouseFlourish({ show }: { show: boolean }) {
   )
 }
 
-function Typewriter({ text, onDone }: { text: string; onDone?: () => void }) {
+function Typewriter({ lines, onDone }: { lines: string[]; onDone?: () => void }) {
+  const full = lines.join('\n')
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if (count >= text.length) {
+    if (count >= full.length) {
       onDone?.()
       return
     }
@@ -87,11 +88,19 @@ function Typewriter({ text, onDone }: { text: string; onDone?: () => void }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count])
 
+  const typed = full.slice(0, count)
+  const typedLines = typed.split('\n')
+
   return (
     <>
-      {text.slice(0, count)}
+      {typedLines.map((line, i) => (
+        <span key={i}>
+          {i > 0 && <br />}
+          {line}
+        </span>
+      ))}
       <span
-        className={`inline-block w-[0.06em] ${count < text.length ? 'animate-pulse' : 'opacity-0'}`}
+        className={`inline-block w-[0.06em] ${count < full.length ? 'animate-pulse' : 'opacity-0'}`}
       >
         |
       </span>
@@ -138,7 +147,7 @@ function PhotoMasthead() {
       <div className="relative flex flex-col items-start text-left">
         <HouseFlourish show={typingDone} />
         <h1 className="font-display mt-3 text-6xl leading-[0.85] tracking-tighter text-white uppercase sm:text-8xl">
-          <Typewriter text="Huis van Cees" onDone={() => setTypingDone(true)} />
+          <Typewriter lines={['Huis', 'van Cees']} onDone={() => setTypingDone(true)} />
         </h1>
         <p
           className="mt-3 text-sm font-semibold tracking-[0.2em] uppercase sm:text-base"
