@@ -60,8 +60,11 @@ function Hero() {
         van cees
       </p>
       <h1 className="font-display mt-4 max-w-3xl text-4xl leading-[1.05] tracking-tight uppercase sm:text-6xl">
-        Your next <span style={{ color: PURPLE }}>sport influencer</span>{' '}
-        agency
+        Your next
+        <br />
+        <span style={{ color: PURPLE }}>Sport influencer</span>
+        <br />
+        Agency
       </h1>
       <p className="font-display mt-2 text-3xl tracking-tight uppercase opacity-30 sm:text-4xl">
         Coming soon
