@@ -208,18 +208,80 @@ const reasons = [
   },
 ]
 
+const values = [
+  {
+    title: 'Samen staan we sterker',
+    description:
+      'Niets groots ontstaat alleen. We bouwen mee met onze talenten, niet los ervan.',
+  },
+  {
+    title: 'Sport door en door',
+    description:
+      'We snappen sportmensen omdat we het zelf zijn — geen halve aannames.',
+  },
+  {
+    title: 'Resultaat boven praatjes',
+    description: 'We beloven weinig en leveren veel. Actie voor poeha.',
+  },
+]
+
+function WhatWeStandFor() {
+  return (
+    <section className="relative overflow-hidden px-6 py-24 sm:px-12">
+      <img
+        src="/portfolio/on-3.jpg"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover opacity-20"
+      />
+      <div className="absolute inset-0" style={{ backgroundColor: `${GREEN}CC` }} />
+
+      <div className="relative">
+        <Reveal>
+          <h2 className="font-display max-w-3xl text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
+            What we
+            <br />
+            stand for
+          </h2>
+        </Reveal>
+
+        <div className="mt-12 max-w-3xl">
+          {values.map((value, i) => (
+            <Reveal
+              key={value.title}
+              className="border-t py-6"
+              style={{ borderColor: `${OFF_WHITE}1A`, transitionDelay: `${i * 120}ms` }}
+            >
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
+                <span className="font-display shrink-0 text-sm opacity-40">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="font-display text-2xl uppercase sm:w-72 sm:shrink-0">
+                  {value.title}
+                </span>
+                <p className="text-base leading-relaxed opacity-60">
+                  {value.description}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function App() {
   return (
     <div style={{ backgroundColor: GREEN, color: OFF_WHITE }}>
       <Hero />
 
-      <section className="border-t px-6 py-24" style={{ borderColor: `${OFF_WHITE}1A` }}>
+      <section className="border-t px-6 py-24 sm:px-12" style={{ borderColor: `${OFF_WHITE}1A` }}>
         <Reveal>
-          <div className="mx-auto max-w-3xl">
+          <div className="max-w-3xl">
             <h2 className="font-display text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
               Who we are
             </h2>
-            <p className="mt-8 max-w-xl text-lg opacity-60">
+            <p className="mt-8 max-w-xl text-lg leading-relaxed opacity-60">
               Wij zijn zelf sportmensen — dus snappen we sportmensen.
               <br />
               <br />
@@ -230,7 +292,7 @@ function App() {
           </div>
         </Reveal>
 
-        <div className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-4">
+        <div className="mt-16 grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-4">
           {founders.map((founder, i) => (
             <Reveal
               key={founder.photo}
@@ -250,14 +312,16 @@ function App() {
         </div>
       </section>
 
-      <section className="border-t px-6 py-24" style={{ borderColor: `${OFF_WHITE}1A` }}>
+      <WhatWeStandFor />
+
+      <section className="border-t px-6 py-24 sm:px-12" style={{ borderColor: `${OFF_WHITE}1A` }}>
         <Reveal>
-          <h2 className="font-display mx-auto max-w-3xl text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
+          <h2 className="font-display max-w-3xl text-5xl leading-[0.85] tracking-tighter uppercase sm:text-7xl">
             Why join us?
           </h2>
         </Reveal>
 
-        <Reveal className="mx-auto mt-12 max-w-3xl">
+        <Reveal className="mt-12 max-w-3xl">
           {reasons.map((reason, i) => (
             <div
               key={reason.title}
@@ -282,7 +346,7 @@ function App() {
         </Reveal>
       </section>
 
-      <section className="border-t px-6 py-24" style={{ borderColor: `${OFF_WHITE}1A` }}>
+      <section className="border-t px-6 py-24 sm:px-12" style={{ borderColor: `${OFF_WHITE}1A` }}>
         <Reveal>
           <h2 className="text-center text-sm font-semibold tracking-[0.3em] uppercase opacity-40">
             Already in our portfolio
