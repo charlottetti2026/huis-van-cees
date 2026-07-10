@@ -86,12 +86,12 @@ function Hero() {
       <h1 className="font-display mt-1 max-w-3xl text-4xl leading-[0.95] tracking-tight uppercase sm:text-6xl">
         Your next
         <br />
-        <span style={{ color: PURPLE }}>Sport influencer</span>
+        <span style={{ color: PURPLE }}>Sport creator</span>
         <br />
         Agency
       </h1>
       <p
-        className="font-display mt-0 text-3xl tracking-tight uppercase italic sm:text-4xl"
+        className="font-display mt-16 text-sm tracking-tight uppercase italic sm:text-base"
         style={{ color: PURPLE }}
       >
         {typed}
@@ -139,7 +139,7 @@ function FlyInPhotos() {
   ]
 
   return (
-    <div className="mt-8 grid w-full max-w-3xl auto-rows-[150px] grid-cols-3 gap-3 sm:auto-rows-[190px] sm:gap-4">
+    <div className="mt-8 grid w-full max-w-2xl auto-rows-[90px] grid-cols-3 gap-2 sm:auto-rows-[120px] sm:gap-3">
       {FLY_IN_PHOTOS.map((src, i) => (
         <Reveal
           key={src}
